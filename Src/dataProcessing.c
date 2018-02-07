@@ -58,7 +58,7 @@ void dataProcessing() {
 	if (usart3_rx_flag == 1)
 	{
 		arrayRightOneByte(usart3_tx_buffer, usart3_tx_len);
-		usart3_tx_buffer[0] = 1;
+		usart3_tx_buffer[0] = 3;
 		usart3_tx_len++;
 		dma_send(&huart2, &hdma_usart2_tx, usart3_tx_buffer, usart3_tx_len);
 	}
@@ -66,7 +66,7 @@ void dataProcessing() {
 	if (uart4_rx_flag == 1)
 	{
 		arrayRightOneByte(uart4_tx_buffer, uart4_tx_len);
-		uart4_tx_buffer[0] = 1;
+		uart4_tx_buffer[0] = 4;
 		uart4_tx_len++;
 		dma_send(&huart2, &hdma_usart2_tx, uart4_tx_buffer, uart4_tx_len);
 	}
@@ -74,7 +74,7 @@ void dataProcessing() {
 	if (uart4_rx_flag == 1)
 	{
 		arrayRightOneByte(uart5_tx_buffer, uart5_tx_len);
-		uart5_tx_buffer[0] = 1;
+		uart5_tx_buffer[0] = 5;
 		uart5_tx_len++;
 		dma_send(&huart2, &hdma_usart2_tx, uart5_tx_buffer, uart5_tx_len);
 	}

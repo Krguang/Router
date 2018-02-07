@@ -44,6 +44,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
+#include "dataProcessing.h"
 
 /* USER CODE END Includes */
 
@@ -155,7 +156,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+	  dataProcessing();
 
   }
   /* USER CODE END 3 */
