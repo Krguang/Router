@@ -43,7 +43,7 @@ void dataProcessing() {
 			break;
 		case 5:
 			arrayLeftOneByte(usart2_tx_buffer, usart2_tx_len);
-			dma_send(&huart1, &hdma_uart5_tx, usart2_tx_buffer, usart2_tx_len - 1);
+			dma_send(&huart5, &hdma_uart5_tx, usart2_tx_buffer, usart2_tx_len - 1);
 			usart2_rx_flag = 0;
 			break;
 		default:
@@ -78,12 +78,12 @@ void dataProcessing() {
 		uart4_rx_flag = 0;
 	}
 
-	if (uart4_rx_flag == 1)
+	if (uart5_rx_flag == 1)
 	{
 		arrayRightOneByte(uart5_tx_buffer, uart5_tx_len);
 		uart5_tx_buffer[0] = 5;
 		uart5_tx_len++;
 		dma_send(&huart2, &hdma_usart2_tx, uart5_tx_buffer, uart5_tx_len);
-		uart4_rx_flag = 0;
+		uart5_rx_flag = 0;
 	}
 }
