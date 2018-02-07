@@ -38,6 +38,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h"
+#include "dma.h"
 #include "i2s.h"
 #include "usart.h"
 #include "gpio.h"
@@ -62,6 +63,32 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+
+unsigned char usart1_rx_buffer[128];
+unsigned char usart1_tx_buffer[128];
+unsigned int usart1_tx_len = 0;
+unsigned char usart1_rx_flag = 0;
+
+unsigned char usart2_rx_buffer[128];
+unsigned char usart2_tx_buffer[128];
+unsigned int usart2_tx_len = 0;
+unsigned char usart2_rx_flag = 0;
+
+unsigned char usart3_rx_buffer[128];
+unsigned char usart3_tx_buffer[128];
+unsigned int usart3_tx_len = 0;
+unsigned char usart3_rx_flag = 0;
+
+unsigned char uart4_rx_buffer[128];
+unsigned char uart4_tx_buffer[128];
+unsigned int uart4_tx_len = 0;
+unsigned char uart4_rx_flag = 0;
+
+unsigned char uart5_rx_buffer[128];
+unsigned char uart5_tx_buffer[128];
+unsigned int uart5_tx_len = 0;
+unsigned char uart5_rx_flag = 0;
+
 
 /* USER CODE END 0 */
 
@@ -94,6 +121,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_I2S2_Init();
   MX_UART4_Init();
   MX_UART5_Init();
@@ -101,6 +129,21 @@ int main(void)
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  /* USART接收 */
+  if (HAL_UART_Receive_DMA(&huart1, (uint8_t *)&usart1_rx_buffer, 128) != HAL_OK)    Error_Handler();
+  if (HAL_UART_Receive_DMA(&huart2, (uint8_t *)&usart2_rx_buffer, 128) != HAL_OK)    Error_Handler();
+  if (HAL_UART_Receive_DMA(&huart3, (uint8_t *)&usart3_rx_buffer, 128) != HAL_OK)    Error_Handler();
+  if (HAL_UART_Receive_DMA(&huart4, (uint8_t *)&uart4_rx_buffer, 128) != HAL_OK)    Error_Handler();
+  if (HAL_UART_Receive_DMA(&huart5, (uint8_t *)&uart5_rx_buffer, 128) != HAL_OK)    Error_Handler();
+
+  /* 开启空闲接收中断 */
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+  __HAL_UART_ENABLE_IT(&huart2, UART_IT_IDLE);
+  __HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);
+  __HAL_UART_ENABLE_IT(&huart4, UART_IT_IDLE);
+  __HAL_UART_ENABLE_IT(&huart5, UART_IT_IDLE);
+
 
   /* USER CODE END 2 */
 
@@ -112,13 +155,24 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	  HAL_UART_Transmit(&huart1, "hello uart1\n", 14, 0xff);
-	  HAL_UART_Transmit(&huart2, "hello uart2\n", 14, 0xff);
-	  HAL_UART_Transmit(&huart3, "hello uart3\n", 14, 0xff);
-	  HAL_UART_Transmit(&huart4, "hello uart4\n", 14, 0xff);
-	  HAL_UART_Transmit(&huart5, "hello uart5\n", 14, 0xff);
+	  if (usart1_rx_flag == 1)
+	  {
+		  dma_send(&huart1,&hdma_usart1_tx,usart1_tx_buffer, usart1_tx_len);
+		  usart1_rx_flag = 0;
+	  }
 
-	  HAL_Delay(500);
+	  if (usart2_rx_flag == 1)
+	  {
+		  dma_send(&huart2, &hdma_usart2_tx, usart2_tx_buffer, usart2_tx_len);
+		  usart2_rx_flag = 0;
+	  }
+
+	  if (uart5_rx_flag == 1)
+	  {
+		  dma_send(&huart5, &hdma_uart5_tx, uart5_tx_buffer, uart5_tx_len);
+		  uart5_rx_flag = 0;
+	  }
+
   }
   /* USER CODE END 3 */
 
