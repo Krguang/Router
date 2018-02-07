@@ -22,8 +22,8 @@ LINUX_PACKAGES +=
 
 CFLAGS += 
 CXXFLAGS += 
-ASFLAGS += 
+ASFLAGS += -mfpu=fpv4-sp-d16
 LDFLAGS += --specs=nano.specs --specs=nosys.specs
-COMMONFLAGS += -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=soft
+COMMONFLAGS += -mcpu=cortex-m4 -mthumb -mfloat-abi=soft
 LINKER_SCRIPT := $(BSP_ROOT)/STM32F4xxxx/LinkerScripts/STM32F407VE_flash.lds
 

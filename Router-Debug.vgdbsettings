@@ -61,7 +61,6 @@
       <DisableSignals>false</DisableSignals>
       <EnableAsyncExecutionMode>false</EnableAsyncExecutionMode>
       <EnableNonStopMode>false</EnableNonStopMode>
-      <MaxBreakpointLimit>0</MaxBreakpointLimit>
     </AdditionalGDBSettings>
     <DebugMethod>
       <ID>jlink-jtag</ID>
@@ -131,7 +130,6 @@
     <CheckInterfaceDrivers>true</CheckInterfaceDrivers>
     <DynamicAnalysisSettings />
     <EndOfStackSymbol>_estack</EndOfStackSymbol>
-    <TimestampProviderTicksPerSecond>0</TimestampProviderTicksPerSecond>
   </Debug>
   <CustomBuild>
     <PreSyncActions />
@@ -173,5 +171,4 @@
       <Enabled>false</Enabled>
     </CodeAnalyzerSettings>
   </CodeSense>
-  <ProgramArgumentsSuggestions />
 </VisualGDBProjectSettings2>
