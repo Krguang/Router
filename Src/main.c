@@ -155,23 +155,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	  if (usart1_rx_flag == 1)
-	  {
-		  dma_send(&huart1,&hdma_usart1_tx,usart1_tx_buffer, usart1_tx_len);
-		  usart1_rx_flag = 0;
-	  }
 
-	  if (usart2_rx_flag == 1)
-	  {
-		  dma_send(&huart2, &hdma_usart2_tx, usart2_tx_buffer, usart2_tx_len);
-		  usart2_rx_flag = 0;
-	  }
-
-	  if (uart5_rx_flag == 1)
-	  {
-		  dma_send(&huart5, &hdma_uart5_tx, uart5_tx_buffer, uart5_tx_len);
-		  uart5_rx_flag = 0;
-	  }
 
   }
   /* USER CODE END 3 */
