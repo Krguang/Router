@@ -47,6 +47,7 @@ void dataProcessing() {
 			usart2_rx_flag = 0;
 			break;
 		default:
+			usart2_rx_flag = 0;
 			break;
 		}
 	}
